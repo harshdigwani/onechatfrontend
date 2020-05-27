@@ -15,7 +15,7 @@ const Chat = ({ location }) => {
     const [room, setRoom] = useState("");
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);
-    const URL = "localhost:5000"
+    const URL = "https://onechatbackend.herokuapp.com/"
 
     useEffect(() => {
         const { name, room } = queryString.parse(location.search);
