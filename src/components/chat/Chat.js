@@ -15,6 +15,7 @@ const Chat = ({ location }) => {
     const [room, setRoom] = useState("");
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);
+    const [error, setError] = useState(false);
     const URL = "https://onechatbackend.herokuapp.com/"
 
     useEffect(() => {
@@ -22,14 +23,15 @@ const Chat = ({ location }) => {
         setRoom(room);
         setName(name);
         socket = io(URL);
-        socket.emit('join', { name, room }, () => {
+        socket.emit('join', { name, room }, (error) => {
+            if (error) setError(error);
+            console.log(error);
         });
 
         return () => {
             socket.emit('disconnect');
             socket.off();
         }
-
     }, [URL, location.search]);
 
     useEffect(() => {
